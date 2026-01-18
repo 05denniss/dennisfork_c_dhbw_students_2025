@@ -2,9 +2,13 @@
 
 // Call by Reference function
 
+void printMemoryAddressAndValue(float* ptr);
+
 // Call by Value function
 
-int main()
+float addValue(float a, float b);
+
+int main(void)
 {
     float myFloat = 42.42f;
 
@@ -18,4 +22,13 @@ int main()
     printMemoryAddressAndValue(&newValue);
 
     return 0;
+}
+
+void printMemoryAddressAndValue(float* ptr) {
+    printf("%p\n", (void *)ptr);
+    printf("%f\n", *ptr);
+}
+
+float addValue(float a, float b) {
+    return a + b;
 }
