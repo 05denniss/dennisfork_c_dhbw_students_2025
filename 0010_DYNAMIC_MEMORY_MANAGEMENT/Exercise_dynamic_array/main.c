@@ -3,49 +3,46 @@
 
 int main(void) 
 {
+    int n = 0;
+    int sum = 0;
 
-    int n;
-    int *arr; // Das ist unser "Anker" für das dynamische Array
+    //Fills the array with user-provided values.
+    //Accepts the number of elements (n) from the user. Ensure n is validated to be a positive integer.
 
-    // 2. Eingabe der Anzahl und Validierung
-    printf("Geben Sie die Anzahl der Elemente ein: ");
+    printf("Hoy many values do you want? \n");
+
     if (scanf("%d", &n) != 1 || n <= 0) {
-        printf("Fehler: Bitte eine positive ganze Zahl eingeben.\n");
-        return 1; 
-    }
-
-    // 3. Speicher reservieren
-    // Wir brauchen Platz für 'n' mal die Größe eines 'int'
-    arr = (int *)malloc(n * sizeof(int));
-
-    // Überprüfen, ob die Reservierung geklappt hat (NULL-Check)
-    if (arr == NULL) {
-        printf("Speicher konnte nicht reserviert werden!\n");
+        printf("ERROR: Only a positive amount of values possible.");
         return 1;
     }
 
-    // 4. Array mit Werten füllen
-    printf("Geben Sie die %d Werte ein:\n", n);
-    for (int i = 0; i < n; i++) {
-        printf("Element %d: ", i + 1);
-        scanf("%d", &arr[i]); // Speichert die Eingabe an der i-ten Stelle
+    //Dynamically allocates memory for n integers using malloc. 
+
+    int* values = malloc(n * sizeof(int)) ;
+
+    //The program should check if malloc returns NULL to handle allocation failures and provide an appropriate error message.
+
+    if (values == NULL) {
+        printf("ERROR: Allocation failure.");
+        return 1;
     }
 
-    // 5. Summe berechnen
-    int summe = 0;
-    for (int i = 0; i < n; i++) {
-        summe += arr[i]; // Addiert jeden Wert zur Summe hinzu
+    for (int i=0; i<n; i++) {
+        printf("Enter value #%d: ", i+1);
+        scanf(" %d", &values[i]);
     }
 
-    // 6. Ergebnis ausgeben
-    printf("\nDie Summe aller Elemente ist: %d\n", summe);
+    //Calculates and prints the sum of all elements in the array.
 
-    // 7. WICHTIG: Speicher freigeben
-    // Damit sagst du dem System: "Ich brauche den Platz nicht mehr."
-    free(arr);
+    for (int i=0; i<n ; i++) {
+        sum += values[i];
+    }
     
-    // Den Pointer auf NULL setzen ist eine gute Gewohnheit (Safety First)
-    arr = NULL; 
+    printf("\nThe sum of all the values is: %d", sum);
+
+    //Frees the allocated memory to prevent memory leaks.
+    free(values);
+    values = NULL;
 
     return 0;
 }
